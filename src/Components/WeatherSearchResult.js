@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import moment from "moment";
 import styled from "styled-components";
 
 // components
@@ -94,6 +93,7 @@ const WeatherSearchResult = props => {
     }
   `;
 
+  // save state to toggle between current weather and forecast
   const [weatherView, setWeatherView] = useState("currentWeather");
 
   const toggleWeatherView = () => {
@@ -102,8 +102,7 @@ const WeatherSearchResult = props => {
       : setWeatherView("currentWeather");
   };
 
-  console.log(props);
-
+  // check if prop arrays are empty, if so render message, otherwise render data cards
   let searchResult;
   props.savedResultCurrent.length === 0 || props.savedResultCurrent.length === 0
     ? (searchResult = (

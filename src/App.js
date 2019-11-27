@@ -3,13 +3,13 @@ import "./App.css";
 
 // components
 import Header from "./Components/Header";
-import WeatherContainer from "./Components/WeatherContainer";
+import WeatherSearch from "./Components/WeatherSearch";
 
 function App() {
   return (
     <div className="App">
       <Header />
-      <WeatherContainer />
+      <WeatherSearch />
     </div>
   );
 }

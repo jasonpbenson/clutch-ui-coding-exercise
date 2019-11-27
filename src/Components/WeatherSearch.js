@@ -11,12 +11,13 @@ import WeatherSearchResult from "./WeatherSearchResult";
 const currentWeatherUrl = `http://api.openweathermap.org/data/2.5/weather?&units=imperial&appid=b89af7f6244a733ea928d2f82cc627f6&zip=`;
 const forecastWeatherUrl = `http://api.openweathermap.org/data/2.5/forecast?$units=imperial&appid=b89af7f6244a733ea928d2f82cc627f6&zip=`;
 
-// custom hook to save values to local storage
+// custom hook to save state to local storage
 // reusable but assumes value will be object to parse, rather than simple string
 const useLocalStorage = (key, defaultValue) => {
   const [state, setState] = useState(() => {
     let value;
     try {
+      // if object key exists parse value
       value = JSON.parse(localStorage.getItem(key) || []);
     } catch (error) {
       value = defaultValue;
@@ -24,6 +25,7 @@ const useLocalStorage = (key, defaultValue) => {
     return value;
   });
   useEffect(() => {
+    // watch for updates and set localStorage state
     localStorage.setItem(key, JSON.stringify(state));
   }, [key, state]);
   return [state, setState];
@@ -105,16 +107,15 @@ const WeatherSearch = () => {
         axios.spread((currentWeatherRes, forecastWeatherRes) => {
           // store value of response data and update state
           const currentWeatherData = currentWeatherRes.data;
+          // forecast object is quite large – filter/slice out the stuff we need
           const forecastWeatherData = forecastWeatherRes.data.list
             .filter(day => {
               return day.dt_txt.includes("12:00:00");
             })
             .slice(0, 3);
-          console.log("api forecast result ", forecastWeatherRes);
           setUserSearch(currentWeatherData);
           setSavedResultCurrent([...savedResultCurrent, currentWeatherData]);
           setSavedResultForecast([...savedResultForecast, forecastWeatherData]);
-          console.log("api call ", savedResultCurrent);
           // reset text input
           zip = document.getElementById("search-input").value = "";
         })
