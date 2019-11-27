@@ -31,7 +31,7 @@ const Header = () => {
       top: 5%;
       z-index: -1;
     }
-    @media (max-width: 900px){
+    @media (max-width: 800px){
       .tree-graphic{
         display: none;
       }

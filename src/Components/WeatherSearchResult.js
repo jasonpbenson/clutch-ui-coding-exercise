@@ -4,6 +4,9 @@ import styled from "styled-components";
 // components
 import Button from "./Button";
 
+// assets
+import evergreenTree from "../assets/evergreen-tree.svg";
+
 const WeatherSearchResult = props => {
   const SearchResultContainer = styled.div`
     color: #422e44;
@@ -14,6 +17,18 @@ const WeatherSearchResult = props => {
     margin: 2rem auto;
     padding: 0;
     width: 90%;
+    .tree-graphic {
+      bottom: 6%;
+      left: 2%;
+      position: fixed;
+      z-index: -1;
+      width: 24rem;
+    }
+    @media (max-width: 800px) {
+      .tree-graphic {
+        display: none;
+      }
+    }
   `;
 
   const WeatherCard = styled.div`
@@ -165,7 +180,12 @@ const WeatherSearchResult = props => {
         );
       }));
 
-  return <SearchResultContainer>{searchResult}</SearchResultContainer>;
+  return (
+    <SearchResultContainer>
+      {searchResult}
+      <img className="tree-graphic" src={evergreenTree} alt="" />
+    </SearchResultContainer>
+  );
 };
 
 export default WeatherSearchResult;
